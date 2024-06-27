@@ -1,0 +1,100 @@
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$fill\
+$nodejs\
+$rust\
+$cmd_duration $jobs $time\
+$line_break\
+$character"""
+
+
+[os]
+format = "[$symbol ]($style)"
+style = "bold yellow"
+disabled = false
+
+[os.symbols]
+Arch = "󰣇"
+
+[username]
+style_user = 'bold yellow'
+format = '[$user]($style) '
+disabled = false
+show_always = true
+
+[nodejs]
+format = "[$symbol($version )]($style)"
+
+[fill]
+symbol = ' '
+
+[directory]
+style = "green"
+read_only = " R"
+truncation_length = 4
+truncate_to_repo = false
+
+[character]
+success_symbol = "[❯](yellow)"
+error_symbol = "[❯](red)"
+vicmd_symbol = "[❮](green)"
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style = "bright-black"
+
+[jobs]
+symbol = ""
+style = "bold red"
+number_threshold = 1
+format = "[$symbol]($style)"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "cyan"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[git_metrics]
+disabled = false
+
+[cmd_duration]
+format = "[$duration]($style)"
+style = "yellow"
+
+[memory_usage]
+symbol = " "
+
+[rust]
+style = 'bold red'
+symbol = "🦀 "
+format = "[$symbol($version )]($style)"
+detect_extensions = ['rs']
+detect_files = ['Cargo.toml']
+
+[terraform]
+format = '\[[$symbol$workspace]($style)\]'
+
+[time]
+use_12hr = true
+disabled = false
+style = "bold white"
+format = "[$time]($style)"
+time_format = '%I:%M %p'
+time_range = '10:00'
+
+[custom.stunnel]
+when = "ps aux | grep stunnel | grep -v grep"
+command = "ps -o etime= -p $(ps aux | grep stunnel | grep -v grep | awk '{print $2}')"
+style = "red"
+format = "[TUNNEL OPEN for $output]($style)"

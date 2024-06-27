@@ -1,0 +1,12 @@
+[Unit]
+Description=Battery Monitor Script
+
+[Service]
+Type=simple
+ExecStart=/home/abdo/.config/bspwm/scripts/battery
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=default.target
+

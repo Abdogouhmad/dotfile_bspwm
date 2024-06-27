@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Get battery status
+battery_status=$(acpi -b)
+
+# Extract battery percentage
+battery_percentage=$(echo "$battery_status" | grep -P -o '[0-9]+(?=%)')
+
+# Check if battery is charging, discharging, or unknown
+if echo "$battery_status" | grep -q "Charging"; then
+    battery_status="Charging"
+elif echo "$battery_status" | grep -q "Discharging"; then
+    battery_status="Discharging"
+else
+    battery_status="Unknown"
+fi
+
+# Check if laptop is unplugged (on battery)
+if echo "$battery_status" | grep -q "Battery"; then
+    battery_status="Unplugged"
+fi
+
+# Threshold percentage for low battery
+low_threshold=30
+# Threshold percentage for high battery (charging notification)
+high_threshold=80
+
+# Notification timeout in milliseconds (6 seconds in this example)
+timeout_ms=6000
+
+# Send critical notification for low battery if battery is discharging and below low threshold
+if [ "$battery_percentage" -eq "$low_threshold" ]; then
+    dunstify -u critical -t "$timeout_ms" "Battery Low" "Battery level is ${battery_percentage}%"
+fi
+
+# Send notification for high batter if battery is charging and above high threshold
+# if [ "$battery_percentage" -eq "$high_threshold" ]; then
+#     dunstify -t "$timeout_ms" "Battery Charging" "Battery level is ${battery_percentage}%"
+# fi
+

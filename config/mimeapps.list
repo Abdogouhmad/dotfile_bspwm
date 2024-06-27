@@ -1,0 +1,6 @@
+[Added Associations]
+image/png=viewnior.desktop;
+application/zip=kitty.desktop;
+
+[Default Applications]
+application/zip=kitty.desktop

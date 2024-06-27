@@ -1,0 +1,215 @@
+#!/usr/bin/env bash
+
+# Define colors for printing
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+#MAGENTA='\033[0;35m'
+NC='\033[0m'
+
+# Global variables
+PACKAGE="pacman"
+NCONF="--noconfirm"
+
+# Function to print colored messages
+function cprintln() {
+    local color=$1
+    local message=$2
+    local nc=$NC
+    echo -e "${color}${message}${nc}"
+}
+
+# Function to check the success of an operation
+function checkop() {
+    local output="$1"
+    local wrong="$2"
+    local correct="$3"
+
+    if [ "$output" -ne 0 ]; then
+        cprintln "$RED" "$wrong"
+        exit "$output"
+    else
+        cprintln "$GREEN" "$correct"
+    fi
+}
+
+# Function to update system packages
+function update() {
+    cprintln "$YELLOW" "Updating before commencing..."
+    sudo $PACKAGE -Syu $NCONF
+    checkop "$?" "Couldn't update" "Update completed successfully"
+}
+
+# Function to install necessary packages using pacman
+function install_packages() {
+    cprintln "$YELLOW" "Installing needed packages (may need additional packages later)..."
+    sleep 3
+
+    Packages=(
+        # Necessary packages
+        "kitty"
+        "zsh"
+        "starship"
+        "dunst"
+        "thunar"
+        "pipewire-pulse"
+        "pipewire-alsa"
+        "pipewire-jack"
+        "wireplumber"
+        "playerctl"
+        "pavucontrol"
+        "gtk2"
+        "gtk3"
+        "gtk4"
+        "lxappearance"
+        "brillo"
+        # Tools
+        "maim"
+        "btop"
+        "neofetch"
+        "xclip"
+        "fzf"
+        "tree"
+        "exa"
+        "bat"
+        "feh"
+        "networkmanager"
+        "nitrogen"
+        # Editor
+        "helix"
+        "vim"
+        # Languages
+        "rust"
+        "clang"
+        "nodejs"
+        "python"
+        # Language servers
+        "bash-language-server"
+        "pyright"
+        "typescript-language-server"
+        # Other applications
+        "obsidian"
+    )
+
+    for package in "${Packages[@]}"; do
+        sudo $PACKAGE -Sy "$package" $NCONF
+        checkop "$?" "Failed to install $package" "Installed $package successfully"
+    done
+}
+
+# Function to install yay and update AUR packages
+function step_yay() {
+    cprintln "${YELLOW}" "Installing yay..."
+
+    # Install needed development tools for building packages
+    sudo $PACKAGE -S --needed base-devel xorg "$NCONF"
+    checkop "$?" "Failed to install base devel and xorg" "Installed base devel and xorg"
+
+    # Clone yay from AUR
+    git clone https://aur.archlinux.org/yay.git || {
+        cprintln "${RED}" "Failed to clone yay"
+        exit 1
+    }
+    cd yay || {
+        cprintln "${RED}" "Failed to enter yay directory"
+        exit 1
+    }
+
+    # Build and install yay package
+    makepkg -si || {
+        cprintln "${RED}" "Failed to build yay"
+        exit 1
+    }
+
+    # Update AUR packages using yay
+    yay -Sua --noconfirm
+    checkop "$?" "Failed to update with yay" "yay update completed"
+
+    cprintln "${GREEN}" "yay installed"
+}
+
+# install yay packages
+function yay_packages() {
+    cprintln "$YELLOW" "Installing packages needed"
+    YAY_PACKAGE=(
+        "gruvbox-gtk-theme-git"
+        "gruvbox-icon-theme-git"
+        "bibata-cursor-theme-bin"
+        "networkmanager-dmenu-git"
+    )
+    for package in "${YAY_PACKAGE[@]}"; do
+        sudo yay -Sy "$package" $NCONF
+        checkop "$?" "Failed to install $package" "Installed $package successfully"
+    done
+}
+# cases goes here
+function styled_print() {
+    local symbol="$1"
+    local color="$2"
+    local message="$3"
+    local nc="$NC"
+    echo -e "${color}${symbol}${NC} ${message}${nc}"
+}
+
+# Display options to the user
+styled_print "[Note]" "$YELLOW" "Select an option:"
+styled_print "[Note]" "$YELLOW" "1. ALL - Perform all actions."
+styled_print "[Action]" "$YELLOW" "2. UPDATE - Update system packages."
+styled_print "[Action]" "$YELLOW" "3. PACKAGES - Install necessary packages."
+styled_print "[Action]" "$YELLOW" "4. YAY - Install yay and update AUR packages."
+styled_print "[Install]" "$YELLOW" "5. YAYPACKAGES - Install yay packages."
+styled_print "[Note]" "$YELLOW" "6. QUIT - Exit the script."
+
+# Read user input
+echo -n "Enter your choice (1-6): "
+read -r OPTION
+
+# Process user input using case statement
+case "$OPTION" in
+    "1")
+        styled_print "[Note]" "$GREEN" "Performing all actions..."
+        # Call functions for all actions here
+        styled_print "[Action]" "$GREEN" "Updating system..."
+        update # call the update
+        styled_print "[Action]" "$GREEN" "Installing necessary packages..."
+        install_packages # call the pacman packages
+        styled_print "[Action]" "$GREEN" "Installing yay and updating AUR packages..."
+        step_yay # step yay 
+        styled_print "[Install]" "$GREEN" "Installing yay packages..."
+        yay_packages # install yay packages
+        ;;
+    
+    "2")
+        styled_print "[Action]" "$GREEN" "Updating system..."
+        # Call the update function here
+        update
+        ;;
+    
+    "3")
+        styled_print "[Action]" "$GREEN" "Installing necessary packages..."
+        # Call the install_packages function here
+        install_packages
+        ;;
+    
+    "4")
+        styled_print "[Action]" "$GREEN" "Installing yay and updating AUR packages..."
+        # Call the step_yay function here
+        step_yay
+        ;;
+    
+    "5")
+        styled_print "[Install]" "$GREEN" "Installing yay packages..."
+        # Call the yay_packages function here
+        yay_packages
+        ;;
+    
+    "6")
+        styled_print "[Note]" "$GREEN" "Exiting the script."
+        exit 0
+        ;;
+    
+    *)
+        styled_print "[Note]" "$RED" "Invalid option. Please choose a valid option (1-6)."
+        exit 1
+        ;;
+esac
