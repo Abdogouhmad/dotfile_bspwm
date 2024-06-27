@@ -1,4 +1,4 @@
-theme = "onedarker"
+theme = "gruvbox"
 
 [editor]
 mouse = true
@@ -28,3 +28,5 @@ A-w = ":w"
 A-f = ":format"
 A-q = ":quit"
 A-Q = ":quit!"
+A-r = ":config-reload"
+A-v = ":vsplit"
