@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Icons
-iDIR='/usr/share/archcraft/icons/dunst'
+iDIR='/usr/share/icons/Adwaita/symbolic/status'
 
 # Graphics card
 CARD=$(find /sys/class/backlight | head -n 1)
@@ -22,15 +22,15 @@ get_icon() {
     backlight="$(get_backlight)"
     current="${backlight%%%}"
     if [[ "$current" -ge "0" && "$current" -le "20" ]]; then
-        icon="$iDIR"/brightness-20.png
+        icon="$iDIR"/display-brightness-symbolic.svg
     elif [[ "$current" -ge "20" && "$current" -le "40" ]]; then
-        icon="$iDIR"/brightness-40.png
+        icon="$iDIR"/display-brightness-symbolic.svg
     elif [[ "$current" -ge "40" && "$current" -le "60" ]]; then
-        icon="$iDIR"/brightness-60.png
+        icon="$iDIR"/display-brightness-symbolic.svg
     elif [[ "$current" -ge "60" && "$current" -le "80" ]]; then
-        icon="$iDIR"/brightness-80.png
+        icon="$iDIR"/display-brightness-symbolic.svg
     elif [[ "$current" -ge "80" && "$current" -le "100" ]]; then
-        icon="$iDIR"/brightness-100.png
+        icon="$iDIR"/display-brightness-symbolic.svg
     fi
 }
 

@@ -6,7 +6,7 @@
 DIR="$HOME/.config/dunst"
 
 # Launch dunst daemon
-if [[ `pidof dunst` ]]; then
+if [[ $(pidof dunst) ]]; then
 	pkill dunst
 fi
 
