@@ -2,30 +2,30 @@
 
 [font]
 # Font size in points.
-size = 11
+size = 10
 
 # When true, Alacritty will use a custom built-in font for box drawing characters and powerline symbols.
 builtin_box_drawing = true
 
 # Normal font family and style.
 [font.normal]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrains Mono NL"
 style = "Bold"
 
 # Bold font family.
 [font.bold]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrains Mono NL"
 style = "ExtraBold"
 
 # Italic font family and style.
 [font.italic]
-family = "JetBrainsMono Nerd Font Mono"
+family = "JetBrains Mono NL"
 style = "Italic"
 
 # Bold italic font family.
 [font.bold_italic]
-family = "JetBrainsMono Nerd Font Mono"
-style = "Bold Italic"
+family = "JetBrains Mono NL"
+style = "ExtraBold Italic"
 
 # Offset is the extra space around each character.
 [font.offset]
