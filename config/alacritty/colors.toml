@@ -26,3 +26,6 @@ white   = "#ebdbb2"
 [colors.selection]
 foreground = "#282828"
 background = "#ebdbb2"
+
+[colors.cursor]
+cursor = "#689d6a"
