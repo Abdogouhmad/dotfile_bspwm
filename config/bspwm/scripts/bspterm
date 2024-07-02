@@ -5,7 +5,7 @@
 ## launch alacritty with bspwm config
 
 # bspwm directory
-DIR="$HOME/.config/bspwm"
+DIR="$HOME/.config"
 CONFIG="$DIR/alacritty/alacritty.toml"
 
 if [ "$1" == "--float" ]; then

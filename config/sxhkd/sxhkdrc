@@ -6,7 +6,7 @@
 
 # Terminal (alacritty)
 super + Return
-	kitty
+	bspterm
 
 ##---------- Rofi Launcher & Menus ----------##
 
