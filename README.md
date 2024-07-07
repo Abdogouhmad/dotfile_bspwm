@@ -5,6 +5,7 @@
 
 - [Introduction](#introduction)
 - [Dependencies](#dependencies)
+- [Project Structure](#project-structure)
 - [Installation](#installation)
   - [Manual Installation](#manual-installation)
   - [Automated Installation](#automated-installation)
@@ -27,7 +28,7 @@ customizing BSPWM on Arch Linux. It includes configurations for various componen
 - **Dock:** [Polybar](https://github.com/polybar/polybar)
 - **Application Launcher:** [Rofi](https://github.com/davatorium/rofi)
 
-## project structure 
+## Project Structure 
 
 ```bash
 .
