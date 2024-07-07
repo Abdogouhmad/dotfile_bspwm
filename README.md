@@ -35,13 +35,13 @@ You have two options for installing this BSPWM rice setup:
 
 1. **Clone this repository:**
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/Abdogouhmad/dotfile_bspwm.git ~/
    ```
 
 2. **Symlink configuration files using `stow`:**
    ```bash
-   cd path/to/cloned/repository
-   stow bspwm polybar rofi ...
+   cd dotfile_bspwm
+   stow bspwm polybar helix kitty ...
    ```
    Replace `bspwm`, `polybar`, `rofi`, etc., with the directories containing their respective configuration files.
 
