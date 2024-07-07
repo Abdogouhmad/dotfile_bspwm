@@ -27,6 +27,37 @@ customizing BSPWM on Arch Linux. It includes configurations for various componen
 - **Dock:** [Polybar](https://github.com/polybar/polybar)
 - **Application Launcher:** [Rofi](https://github.com/davatorium/rofi)
 
+## project structure 
+
+```bash
+.
+├── alacritty (important use stow with it)
+├── bspwm (important use stow with it)
+├── dunst (important use stow with it)
+├── helix (important use stow with it)
+├── img
+│   └── bsprice.png
+├── kitty (important use stow with it)
+├── picom (important use stow with it)
+├── polybar (important use stow with it)
+├── README.md
+├── starship (important use stow with it)
+├── step
+├── sxhkd (important use stow with it)
+├── wallpapers
+│   ├── bersek.png
+│   ├── bleach.png
+│   ├── Madara.png
+│   ├── pain.png
+│   ├── wallhaven-2e2xyx.png
+│   ├── wp11058332-gruvbox-wallpapers.png
+│   └── wp11058333-gruvbox-wallpapers.png
+├── Xorg
+│   └── 30-touchpad.conf
+├── yazi (important use stow with it)
+└── zsh (important use stow with it)
+```
+
 ## Installation
 
 You have two options for installing this BSPWM rice setup:
