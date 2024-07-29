@@ -69,7 +69,14 @@ ZSH_THEME="robbyrussell"
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# Add wisely, as too many plugins slow down shell startup
+
+# Path to the Zsh completion scripts
+fpath+=~/.zfunc
+
+# Ensure Zsh completion system is enabled
+autoload -Uz compinit && compinit
+
 plugins=(
     git
    # zsh-cwd-history
@@ -179,7 +186,7 @@ alias lg='ls -l --group-directories-first'
 #other dir
 alias py='python3'
 alias ls='exa --color=auto --icons'
-alias cat='bat --theme=TwoDark'
+alias cat='bat --theme=gruvbox-dark'
 alias nvim-con='cd ~/.config/nvim/'
 alias pyc="pycodestyle"
 alias c='clear'
@@ -215,10 +222,17 @@ eval $(thefuck --alias)
 # bun completions
 [ -s "/home/thorfinn/.bun/_bun" ] && source "/home/thorfinn/.bun/_bun"
 
+# cargo
+export PATH="$HOME/.cargo/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export EDITOR=helix
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
-source /home/abdo/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# Enable Zsh completion system
+autoload -Uz compinit && compinit
