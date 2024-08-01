@@ -8,7 +8,6 @@
 # https://github.com/nushell/nu_scripts/tree/main/themes
 
 
-source ~/.oh-my-posh.nu
 
 
 
@@ -784,3 +783,7 @@ $env.config = {
         }
     ]
 }
+
+# ----- sourcing ----
+source ~/.oh-my-posh.nu
+source ~/.zoxide.nu
