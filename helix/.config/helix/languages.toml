@@ -206,7 +206,7 @@ block-comment-tokens = [
   { start = "/*", end = "*/" },
 ]
 formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-language-servers = ["typescript-language-server"]
+language-servers = [ "typescript-language-server", "tailwindcss-ls"]
 indent = { tab-width = 2, unit = "  " }
 grammar = "javascript"
 
@@ -330,6 +330,25 @@ auto-format = true
 [language-server.tailwindcss-language-server]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
+
+# dart for flutter
+[language-server]
+dart = { command = "dart", args = ["language-server", "--client-id=helix"] }
+[[language]]
+name = "dart"
+scope = "source.dart"
+file-types = ["dart"]
+roots = ["pubspec.yaml"]
+auto-format = true
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+# language-servers = { command = "dart", args = ["language-server", "--client-id=helix"] }
+indent = { tab-width = 2, unit = "  " }
+
+[[grammar]]
+name = "dart"
+source = { git = "https://github.com/UserNobody14/tree-sitter-dart", rev = "e398400a0b785af3cf571f5a57eccab242f0cdf9" }
+
 
 [[grammar]]
 name = "nu"

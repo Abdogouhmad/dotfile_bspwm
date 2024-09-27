@@ -20,11 +20,20 @@
 # -------------- Env path ------------------
 
 # path declaration
-# Set environment variables
+# # Set environment variables
+# $env.HOME = "/home/abdo"
+# $env.CARGO_HOME = "/home/abdo/.cargo"
+# $env.BUN = "/home/abdo/.bun"
+# $env.EDITOR = "helix"
+# $env.ANDROID_HOME = "/opt/android-sdk"
+# $env.PATH + ":" + $env.ANDROID_HOME + "/tools"
+# $env.PATH + ":" + $env.ANDROID_HOME + "/platform-tools"
 $env.HOME = "/home/abdo"
 $env.CARGO_HOME = "/home/abdo/.cargo"
 $env.BUN = "/home/abdo/.bun"
-
+$env.EDITOR = "helix"
+$env.ANDROID_HOME = "/opt/android-sdk"
+$env.PATH = ($env.PATH + ":" + $env.ANDROID_HOME + "/tools:" + $env.ANDROID_HOME + "/platform-tools")
 # Configure PATH
 $env.PATH = (
   $env.PATH
@@ -37,6 +46,30 @@ $env.PATH = (
   | str join (char esep)
 )
 
+do --env {
+    let ssh_agent_file = (
+        $nu.temp-path | path join $"ssh-agent-($env.USER? | default $env.USER).nuon"
+    )
+
+    if ($ssh_agent_file | path exists) {
+        let ssh_agent_env = open ($ssh_agent_file)
+        if ($"/proc/($ssh_agent_env.SSH_AGENT_PID)" | path exists) {
+            load-env $ssh_agent_env
+            return
+        } else {
+            rm $ssh_agent_file
+        }
+    }
+
+    let ssh_agent_env = ^ssh-agent -c
+        | lines
+        | first 2
+        | parse "setenv {name} {value};"
+        | transpose --header-row
+        | into record
+    load-env $ssh_agent_env
+    $ssh_agent_env | save --force $ssh_agent_file
+}
 
 # The default config record. This is where much of your global configuration is setup.
 $env.config = {
@@ -119,7 +152,7 @@ $env.config = {
     }
 
     # color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    use_grid_icons: true
+    # use_grid_icons: true
     footer_mode: 25 # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: null # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
