@@ -58,8 +58,9 @@ bspc wm --adopt-orphans
 # bspc rule -r *:*
 bspc rule -r ./*:* || bspc rule -r -- *:*
 
-# kitty always in 1
-terminals="Alacritty kitty"
+# List of terminal emulators to always place on desktop 1
+terminals="alacritty kitty org.wezfurlong.wezterm"
+
 for terminal in $terminals; do
    bspc rule -a "$terminal" desktop='^1' follow=on focus=on
 done

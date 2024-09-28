@@ -6,9 +6,9 @@
 
 # Terminal (alacritty)
 super + Return
-	bspterm
-super + k
-	kitty
+	wezterm
+# super + k
+#	kitty
 ##---------- Rofi Launcher & Menus ----------##
 
 # Rofi App Launcher

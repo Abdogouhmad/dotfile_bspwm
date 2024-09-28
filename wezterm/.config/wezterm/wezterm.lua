@@ -34,7 +34,7 @@ config = {
   -- color scheme
   color_scheme = "Gruvbox dark, soft (base16)",
   -- window opacity
-  window_background_opacity = 0.5,
+  window_background_opacity = 0.8,
   -- keybindings
   keys = keybindings
 }
