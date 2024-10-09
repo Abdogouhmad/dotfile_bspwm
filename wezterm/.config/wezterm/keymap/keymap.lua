@@ -20,4 +20,22 @@ return {
   { key = '}', mods = 'ALT|SHIFT', action = w.action.ActivatePaneDirection 'Right' },
   { key = 'k', mods = 'CTRL|SHIFT', action = w.action.ActivatePaneDirection 'Up' },
   { key = 'j', mods = 'CTRL|SHIFT', action = w.action.ActivatePaneDirection 'Down' },
+
+    -- Keybindings for Workspace Management
+
+  -- Open a new workspace
+  { key = 'n', mods = 'ALT', action = w.action.SwitchToWorkspace { name = 'workspace1' } },
+  { key = 'b', mods = 'ALT', action = w.action.SwitchToWorkspace { name = 'Btop', spawn = { args = {'btop'}} } },
+  -- Switch to the next workspace
+  { key = 'n', mods = 'CTRL', action = w.action.SwitchWorkspaceRelative(1) },
+  { key = 'p', mods = 'CTRL', action = w.action.SwitchWorkspaceRelative(-1) },
+
+  -- Close the current pane (acts like closing workspace)
+  { key = 'w', mods = 'ALT|SHIFT', action = w.action.CloseCurrentPane { confirm = true } },
+
+  {
+    key = '9',
+    mods = 'ALT',
+    action = w.action.ShowLauncherArgs { flags = 'FUZZY|TABS|WORKSPACES' },
+  },
 }
