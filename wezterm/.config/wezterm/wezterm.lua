@@ -1,17 +1,11 @@
 -- Pull in the wezterm API
 local w = require 'wezterm'
 
--- Add the keymap directory to the package path
-package.path = package.path .. ';' .. w.home_dir .. '/.config/wezterm/keymap/?.lua'
-package.path = package.path .. ';' .. w.home_dir .. '/.config/wezterm/?.lua'
+-- import cores 
+local keybindings = require 'core.keymap'
+local CustomTabBar = require "core.custombar"
+local PaneBar = require "core.PaneBar"
 
--- Import keybindings from the keymap.lua file
-local keybindings = require 'keymap'
-
--- Import background configuration
--- local background = require 'background'
-local CustomTabBar = require "custombar"
-local PaneBar = require "PaneBar"
 -- This will hold the configuration.
 local config = w.config_builder()
 
@@ -45,8 +39,7 @@ config = {
   keys = keybindings
 }
 
--- Apply background configuration if needed
--- config = background.apply_config(config)
+-- Apply needed configurations
 config = CustomTabBar.apply_config(config)
 config = PaneBar.apply_config(config)
 -- and finally, return the configuration to wezterm

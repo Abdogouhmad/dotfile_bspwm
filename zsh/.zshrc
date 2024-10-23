@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/abdo/.zsh/completions:"* ]]; then export FPATH="/home/abdo/.zsh/completions:$FPATH"; fi
 # Enable Zsh profiling
 # zmodload zsh/zprof
 
@@ -49,7 +51,6 @@ export PATH="$PNPM_HOME:$HOME/.cargo/bin:$HOME/.bun/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export ANDROID_HOME="/opt/android-sdk"
 export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
-
 # Lazy load certain functions and completions
 lazy_load() {
     local cmd="$1"

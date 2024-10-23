@@ -249,11 +249,23 @@ scope = "source.ts"
 injection-regex = "(ts|typescript)"
 file-types = ["ts", "mts", "cts"]
 language-id = "typescript"
+roots = ["deno.json", "deno.jsonc", "package.json"]
 shebangs = ["deno", "ts-node"]
 comment-token = "//"
 block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = ["typescript-language-server"]
 indent = { tab-width = 2, unit = "  " }
+language-servers = ["deno-lsp"]
+# language-servers = ["typescript-language-server"]
+
+[language-server.deno-lsp]
+command = "deno"
+args = ["lsp"]
+
+[language-server.deno-lsp.config.deno]
+enable = true
+lint = true
+unstable = true
+
 
 [[language]]
 name = "tsx"
@@ -345,10 +357,74 @@ block-comment-tokens = { start = "/*", end = "*/" }
 # language-servers = { command = "dart", args = ["language-server", "--client-id=helix"] }
 indent = { tab-width = 2, unit = "  " }
 
+
+# lua
+
+[language-server.lua-language-server.config.Lua.hint]
+enable = true
+arrayIndex = "Auto"
+setType = true
+paramName = "All"
+paramType = true
+await = true
+
+[[language]]
+name = "lua"
+injection-regex = "lua"
+scope = "source.lua"
+file-types = ["lua"]
+shebangs = ["lua", "luajit"]
+roots = [".luarc.json", ".luacheckrc", ".stylua.toml", "selene.toml", ".git"]
+comment-token = "--"
+block-comment-tokens = { start = "--[[", end = "--]]" }
+indent = { tab-width = 2, unit = "  " }
+language-servers = [ "lua-language-server" ]
+
+# Golang
+[language-server.gopls]
+command = "gopls"
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+compositeLiteralFields = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
+
+[language-server.golangci-lint-lsp]
+command = "golangci-lint-langserver"
+
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--out-format", "json", "--issues-exit-code=1"]
+
+[[language]]
+name = "go"
+scope = "source.go"
+injection-regex = "go"
+file-types = ["go"]
+roots = ["go.work", "go.mod"]
+auto-format = true
+comment-token = "//"
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = [ "gopls", "golangci-lint-lsp" ]
+# TODO: gopls needs utf-8 offsets?
+indent = { tab-width = 4, unit = "\t" }
+
+# [language.debugger]
+# name = "go"
+# transport = "tcp"
+# command = "dlv"
+# args = ["dap"]
+# port-arg = "-l 127.0.0.1:{}"
+
+[[grammar]]
+name = "go"
+source = { git = "https://github.com/tree-sitter/tree-sitter-go", rev = "64457ea6b73ef5422ed1687178d4545c3e91334a" }
+  
 [[grammar]]
 name = "dart"
 source = { git = "https://github.com/UserNobody14/tree-sitter-dart", rev = "e398400a0b785af3cf571f5a57eccab242f0cdf9" }
-
 
 [[grammar]]
 name = "nu"
@@ -368,3 +444,8 @@ source = { git = "https://github.com/latex-lsp/tree-sitter-bibtex", rev = "ccfd7
 [[grammar]]
 name = "toml"
 source = { git = "https://github.com/ikatyang/tree-sitter-toml", rev = "7cff70bbcbbc62001b465603ca1ea88edd668704" }
+
+
+[[grammar]]
+name = "lua"
+source = { git = "https://github.com/tree-sitter-grammars/tree-sitter-lua", rev = "88e446476a1e97a8724dff7a23e2d709855077f2" }

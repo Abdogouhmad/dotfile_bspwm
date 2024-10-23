@@ -1,10 +1,14 @@
-theme = "gruvbox"
+theme = "gruvbox_dark_hard"
 
 [editor]
 mouse = true
 auto-save = true
 auto-format = true
 popup-border = "all"
+
+# [editor.lsp]
+# display-inlay-hints = true
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
@@ -22,11 +26,11 @@ mode.select = "SELECT"
 
 [editor.file-picker]
 hidden = false
-
 [keys.normal]
 A-w = ":w"
 A-f = ":format"
 A-q = ":quit"
 A-Q = ":quit!"
 A-r = ":config-reload"
+A-o = ":config-open"
 A-v = ":vsplit"
