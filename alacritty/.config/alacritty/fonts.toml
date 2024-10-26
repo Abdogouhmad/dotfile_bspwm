@@ -1,38 +1,28 @@
-# Font configuration ---------------------------------------
-
 [font]
-# Font size in points.
+# Font size in points
 size = 10
-
-# When true, Alacritty will use a custom built-in font for box drawing characters and powerline symbols.
 builtin_box_drawing = true
 
-# Normal font family and style.
 [font.normal]
-family = "JetBrains Mono NL"
+family = "JetBrains Mono"
 style = "Bold"
 
-# Bold font family.
 [font.bold]
-family = "JetBrains Mono NL"
+family = "JetBrains Mono"
 style = "ExtraBold"
 
-# Italic font family and style.
 [font.italic]
-family = "JetBrains Mono NL"
+family = "JetBrains Mono"
 style = "Italic"
 
-# Bold italic font family.
 [font.bold_italic]
-family = "JetBrains Mono NL"
+family = "JetBrains Mono"
 style = "ExtraBold Italic"
 
-# Offset is the extra space around each character.
 [font.offset]
 x = 0
 y = 0
 
-# Glyph offset determines the locations of the glyphs within their cells with the default being at the bottom.
 [font.glyph_offset]
 x = 0
 y = 0
