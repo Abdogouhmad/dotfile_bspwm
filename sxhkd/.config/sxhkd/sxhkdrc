@@ -146,7 +146,7 @@ super + l
 	bspc desktop -l next
 
 # Toggle Fullscreen
-super + f
+super + alt + f
     bspc node -t "~"fullscreen
 
 # Toggle beetwen floating & tiled

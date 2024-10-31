@@ -7,9 +7,10 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 RESET='\033[0m'
 
-# Define the paths for Zsh and Nushell
+# Define the paths for Zsh, Nushell, and Bash
 zsh_path="/usr/bin/zsh"
 nu_path="/usr/bin/nu"
+bash_path="/bin/bash"  # Assuming Bash is located here
 
 # Function to change the shell with colored output
 change_shell() {
@@ -24,18 +25,31 @@ change_shell() {
 
 # Function to display usage instructions
 show_usage() {
-    echo -e "${BLUE}Usage: cshell [nu|zsh]${RESET}"
+    echo -e "${BLUE}Usage: cshell [bash|nu|zsh]${RESET}"
 }
 
 # Check the argument and change the shell accordingly
-if [[ "$1" == "nu" ]]; then
-    echo -e "${BLUE}Switching to Nushell...${RESET}"
-    change_shell "$nu_path"
-elif [[ "$1" == "zsh" ]]; then
-    echo -e "${BLUE}Switching to Zsh...${RESET}"
-    change_shell "$zsh_path"
-else
-    echo -e "${RED}Invalid argument!${RESET}"
+if [[ -z "$1" ]]; then
     show_usage
     exit 1
 fi
+
+case "$1" in
+    "nu")
+        echo -e "${BLUE}Switching to Nushell...${RESET}"
+        change_shell "$nu_path"
+        ;;
+    "zsh")
+        echo -e "${BLUE}Switching to Zsh...${RESET}"
+        change_shell "$zsh_path"
+        ;;
+    "bash")
+        echo -e "${BLUE}Switching to Bash...${RESET}"
+        change_shell "$bash_path"
+        ;;
+    *)
+        echo -e "${RED}Invalid argument!${RESET}"
+        show_usage
+        exit 1
+        ;;
+esac
